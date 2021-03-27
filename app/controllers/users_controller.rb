@@ -25,11 +25,10 @@ class UsersController < ApplicationController
     #User.create(params[:user])
     @user = User.new(user_params)
     if @user.save
-      log_in @user
       # success(valid params)
-      flash[:success] = "Welcome to the Sample App!"
-      # GET "/users/#{@user.id}"
-      redirect_to @user 
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
       # redirect_to user_path(@user)
       # redirect_to user_path(@user.id)
       # redirect_to user_path(1) 
